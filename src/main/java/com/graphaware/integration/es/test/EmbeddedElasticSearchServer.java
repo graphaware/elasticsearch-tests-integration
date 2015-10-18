@@ -26,21 +26,15 @@ public class EmbeddedElasticSearchServer implements ElasticSearchServer {
 
     public void start() {
         final String classpath = System.getProperty("classpath");
-        LOG.warn("classpath: " + classpath);
-        try
-        {
+        LOG.info("Elasticsearch classpath: " + classpath);
+        try {
             CustomClassLoader loader = new CustomClassLoader(classpath);
             Class<Object> loadedClass = (Class<Object>) loader.loadClass(ElasticSearchClusterRunnerWrapper.class.getCanonicalName());
             embeddedServer = (ElasticSearchServerWrapper) Proxy.newProxyInstance(this.getClass().getClassLoader(),
-                    new Class[]
-                            {
-                                    ElasticSearchServerWrapper.class
-                            },
+                    new Class[]{ElasticSearchServerWrapper.class},
                     new PassThroughProxyHandler(loadedClass.newInstance()));
             embeddedServer.startEmbeddedServer();
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             LOG.warn("Error while creating and starting client", ex);
         }
     }
