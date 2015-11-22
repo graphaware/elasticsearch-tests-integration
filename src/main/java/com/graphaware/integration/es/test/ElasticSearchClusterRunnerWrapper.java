@@ -1,9 +1,10 @@
 package com.graphaware.integration.es.test;
 
-import org.apache.log4j.Logger;
 import org.codelibs.elasticsearch.runner.ElasticsearchClusterRunner;
 import org.elasticsearch.action.admin.indices.create.CreateIndexResponse;
 import org.elasticsearch.common.settings.ImmutableSettings;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
@@ -14,7 +15,7 @@ import java.util.concurrent.TimeUnit;
  * {@link ElasticSearchServerWrapper} for testing that uses {@link ElasticsearchClusterRunner} to run an embedded ES server.
  */
 public class ElasticSearchClusterRunnerWrapper implements ElasticSearchServerWrapper {
-    private static final Logger LOG = Logger.getLogger(ElasticSearchClusterRunnerWrapper.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ElasticSearchClusterRunnerWrapper.class);
     private ElasticsearchClusterRunner runner;
 
     @Override
