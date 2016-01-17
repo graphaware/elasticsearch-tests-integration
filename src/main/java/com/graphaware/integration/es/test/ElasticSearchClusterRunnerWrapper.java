@@ -17,7 +17,7 @@ package com.graphaware.integration.es.test;
 
 import org.codelibs.elasticsearch.runner.ElasticsearchClusterRunner;
 import org.elasticsearch.action.admin.indices.create.CreateIndexResponse;
-import org.elasticsearch.common.settings.ImmutableSettings;
+import org.elasticsearch.common.settings.Settings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,13 +47,12 @@ public class ElasticSearchClusterRunnerWrapper implements ElasticSearchServerWra
                     // create ES nodes
                     runner.onBuild(new ElasticsearchClusterRunner.Builder() {
                         @Override
-                        public void build(int i, ImmutableSettings.Builder bldr) {
-                            bldr.put("http.cors.enabled", true);
+                        public void build(int i, Settings.Builder builder) {
+                            builder.put("http.cors.enabled", true);
                         }
                     }).build(ElasticsearchClusterRunner.newConfigs()
                             //.clusterName("es-cl-run-" + System.currentTimeMillis())
-                            .numOfNode(1)
-                            .ramIndexStore());
+                            .numOfNode(1));
 
                     runner.ensureYellow();
                     LOG.info("Embedded ElasticSearch started ...");
@@ -75,7 +74,7 @@ public class ElasticSearchClusterRunnerWrapper implements ElasticSearchServerWra
 
     @Override
     public void createIndex(String index, Map<String, Object> properties) {
-        final ImmutableSettings.Builder builder = ImmutableSettings.builder();
+        final Settings.Builder builder = Settings.builder();
 
         for (Map.Entry entry : properties.entrySet()) {
             builder.put(entry.getKey(), entry.getValue());

@@ -23,7 +23,7 @@ import java.lang.reflect.Method;
  * delegate. This is useful to handle identical classes loaded in different
  * classloaders - the VM treats them as different classes, but they have
  * identical signatures.
- * <p/>
+ *
  * Note this is using class.getMethod, which will only work on public methods.
  */
 public class PassThroughProxyHandler implements InvocationHandler {
