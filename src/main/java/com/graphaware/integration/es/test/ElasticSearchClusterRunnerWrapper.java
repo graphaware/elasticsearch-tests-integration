@@ -34,7 +34,7 @@ public class ElasticSearchClusterRunnerWrapper implements ElasticSearchServerWra
     private ElasticsearchClusterRunner runner;
 
     @Override
-    public void startEmbeddedServer() {
+    public void startEmbeddedServer(final Map<String, Object> ...parameters) {
         final ClassLoader currentClassLoader = this.getClass().getClassLoader();
         final ExecutorService executor = Executors.newSingleThreadExecutor();
 
@@ -49,6 +49,12 @@ public class ElasticSearchClusterRunnerWrapper implements ElasticSearchServerWra
                         @Override
                         public void build(int i, Settings.Builder builder) {
                             builder.put("http.cors.enabled", true);
+                            if (parameters != null) {
+                              for (Map<String, Object> parameter: parameters) {
+                                for (Map.Entry<String, Object> entry: parameter.entrySet())
+                                  builder.put(entry.getKey(), entry.getValue());
+                              }
+                            }
                         }
                     }).build(ElasticsearchClusterRunner.newConfigs()
                             //.clusterName("es-cl-run-" + System.currentTimeMillis())

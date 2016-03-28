@@ -22,7 +22,7 @@ import java.util.Map;
  */
 public interface ElasticSearchServerWrapper {
 
-    void startEmbeddedServer();
+    void startEmbeddedServer(Map<String, Object> ...parameters);
 
     void stopEmbeddedServer();
 

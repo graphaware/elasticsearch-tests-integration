@@ -19,13 +19,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Proxy;
+import java.util.Map;
 
 public class EmbeddedElasticSearchServer implements ElasticSearchServer {
     private static final Logger LOG = LoggerFactory.getLogger(EmbeddedElasticSearchServer.class);
 
     private ElasticSearchServerWrapper embeddedServer;
 
-    public void start() {
+    public void start(Map<String, Object> ...parameters) {
         final String classpath = System.getProperty("classpath");
         LOG.info("Elasticsearch classpath: " + classpath);
         try {
@@ -34,7 +35,7 @@ public class EmbeddedElasticSearchServer implements ElasticSearchServer {
             embeddedServer = (ElasticSearchServerWrapper) Proxy.newProxyInstance(this.getClass().getClassLoader(),
                     new Class[]{ElasticSearchServerWrapper.class},
                     new PassThroughProxyHandler(loadedClass.newInstance()));
-            embeddedServer.startEmbeddedServer();
+            embeddedServer.startEmbeddedServer(parameters);
         } catch (Exception ex) {
             LOG.warn("Error while creating and starting client", ex);
         }

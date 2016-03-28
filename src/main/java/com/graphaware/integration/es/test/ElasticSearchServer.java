@@ -15,9 +15,11 @@
 
 package com.graphaware.integration.es.test;
 
+import java.util.Map;
+
 public interface ElasticSearchServer {
 
-    void start();
+    void start(Map<String, Object> ...parameters);
 
     void stop();
 }

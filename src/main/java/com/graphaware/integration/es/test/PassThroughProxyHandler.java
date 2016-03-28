@@ -17,6 +17,8 @@ package com.graphaware.integration.es.test;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * An invocation handler that passes on any calls made to it directly to its
@@ -27,6 +29,7 @@ import java.lang.reflect.Method;
  * Note this is using class.getMethod, which will only work on public methods.
  */
 public class PassThroughProxyHandler implements InvocationHandler {
+    private static final Logger LOG = LoggerFactory.getLogger(PassThroughProxyHandler.class);
     private final Object delegate;
 
     public PassThroughProxyHandler(Object delegate) {
@@ -34,7 +37,21 @@ public class PassThroughProxyHandler implements InvocationHandler {
     }
 
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        Method delegateMethod = delegate.getClass().getMethod(method.getName(), method.getParameterTypes());
-        return delegateMethod.invoke(delegate, args);
+        try {
+            Method delegateMethod = delegate.getClass().getMethod(method.getName(), method.getParameterTypes());
+            return delegateMethod.invoke(delegate, args);
+        }
+        catch (NoSuchMethodException ex) {
+            LOG.error("Error during method delegation. Available methods are:");
+            for (Method methodItem : delegate.getClass().getMethods()) {
+                Class<?>[] parameterTypes = methodItem.getParameterTypes();
+                String types = "";
+                for (Class param: parameterTypes)
+                  types += param.getName() + ", ";
+                LOG.warn(methodItem.getName() + ": " + types);
+            }
+            
+            throw ex;
+        }
     }
 }
