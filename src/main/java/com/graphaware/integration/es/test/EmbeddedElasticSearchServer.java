@@ -19,6 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Proxy;
+import java.util.Collections;
 import java.util.Map;
 
 public class EmbeddedElasticSearchServer implements ElasticSearchServer {
@@ -26,7 +27,13 @@ public class EmbeddedElasticSearchServer implements ElasticSearchServer {
 
     private ElasticSearchServerWrapper embeddedServer;
 
-    public void start(Map<String, Object> ...parameters) {
+    @Override
+    public void start() {
+        start(Collections.<String, Object>emptyMap());
+    }
+
+    @Override
+    public void start(Map<String, Object> parameters) {
         final String classpath = System.getProperty("classpath");
         LOG.info("Elasticsearch classpath: " + classpath);
         try {
@@ -41,6 +48,7 @@ public class EmbeddedElasticSearchServer implements ElasticSearchServer {
         }
     }
 
+    @Override
     public void stop() {
         embeddedServer.stopEmbeddedServer();
         embeddedServer = null;

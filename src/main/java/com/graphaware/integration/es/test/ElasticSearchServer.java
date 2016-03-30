@@ -19,7 +19,9 @@ import java.util.Map;
 
 public interface ElasticSearchServer {
 
-    void start(Map<String, Object> ...parameters);
+    void start();
+
+    void start(Map<String, Object> parameters);
 
     void stop();
 }

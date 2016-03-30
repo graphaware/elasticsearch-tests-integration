@@ -21,6 +21,7 @@ import org.elasticsearch.common.settings.Settings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -34,7 +35,12 @@ public class ElasticSearchClusterRunnerWrapper implements ElasticSearchServerWra
     private ElasticsearchClusterRunner runner;
 
     @Override
-    public void startEmbeddedServer(final Map<String, Object> ...parameters) {
+    public void startEmbeddedServer() {
+        startEmbeddedServer(Collections.<String, Object>emptyMap());
+    }
+
+    @Override
+    public void startEmbeddedServer(final Map<String, Object> parameters) {
         final ClassLoader currentClassLoader = this.getClass().getClassLoader();
         final ExecutorService executor = Executors.newSingleThreadExecutor();
 
@@ -50,10 +56,9 @@ public class ElasticSearchClusterRunnerWrapper implements ElasticSearchServerWra
                         public void build(int i, Settings.Builder builder) {
                             builder.put("http.cors.enabled", true);
                             if (parameters != null) {
-                              for (Map<String, Object> parameter: parameters) {
-                                for (Map.Entry<String, Object> entry: parameter.entrySet())
-                                  builder.put(entry.getKey(), entry.getValue());
-                              }
+                                for (Map.Entry<String, Object> entry : parameters.entrySet()) {
+                                    builder.put(entry.getKey(), entry.getValue());
+                                }
                             }
                         }
                     }).build(ElasticsearchClusterRunner.newConfigs()
