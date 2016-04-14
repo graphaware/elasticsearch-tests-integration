@@ -20,7 +20,7 @@
 
     <groupId>com.graphaware.integration.es</groupId>
     <artifactId>elasticsearch-tests-integration</artifactId>
-    <version>2.2.0.1-SNAPSHOT</version>
+    <version>2.2.0.1</version>
 
     <name>Elasticsearch Integration Tests</name>
     <description>Test Utilities for GraphAware Neo4j-Elasticsearch Integration</description>
@@ -38,7 +38,7 @@
         <connection>scm:git:git@github.com:graphaware/elasticsearch-tests-integration.git</connection>
         <developerConnection>scm:git:git@github.com:graphaware/elasticsearch-tests-integration.git</developerConnection>
         <url>git@github.com:graphaware/elasticsearch-tests-integration.git</url>
-        <tag>HEAD</tag>
+        <tag>elasticsearch-tests-integration-2.2.0.1</tag>
     </scm>
 
     <developers>
