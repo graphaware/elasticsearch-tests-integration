@@ -1,9 +1,29 @@
 Testing Support for GraphAware Neo4j<->Elasticsearch Integration
 ================================================================
 
-[![Build Status](https://travis-ci.org/graphaware/elasticsearch-tests-integration.png)](https://travis-ci.org/graphaware/elasticsearch-tests-integration) | Latest Release: 2.3-1.5
+[![Build Status](https://travis-ci.org/graphaware/elasticsearch-tests-integration.png)](https://travis-ci.org/graphaware/elasticsearch-tests-integration) | Latest Release: 2.3.0.1
 
-Supported versions of Elasticsearch: 2.2.0+
+For Elasticsearch 2.3.0+, use
+
+```
+<dependency>
+    <groupId>com.graphaware.integration.es</groupId>
+    <artifactId>elasticsearch-tests-integration</artifactId>
+    <version>2.3.0.1</version>
+    <scope>test</scope>
+</dependency>
+```
+
+For Elasticsearch 2.2.0+, use
+
+```
+<dependency>
+    <groupId>com.graphaware.integration.es</groupId>
+    <artifactId>elasticsearch-tests-integration</artifactId>
+    <version>2.2.0.1</version>
+    <scope>test</scope>
+</dependency>
+```
 
 License
 -------
