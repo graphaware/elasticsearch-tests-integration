@@ -1,8 +1,6 @@
 Testing Support for Elasticsearch Integrations
 ==============================================
 
-[![Build Status](https://travis-ci.org/graphaware/elasticsearch-tests-integration.png)](https://travis-ci.org/graphaware/elasticsearch-tests-integration) | Latest Release: 2.3.0.1
-
 Provides the ability to test against Elasticsearch in the presence of potential dependency version clashes. A classic example
  are different versions of Lucene when running Neo4j and Elasticsearch in the same JVM.
 
